@@ -156,11 +156,11 @@ struct LinkedList<T: Equatable> {
     return head == nil
   }
   
-  public var back: T? {
+  public var last: T? {
     return tail?.value
   }
   
-  public var front: T? {
+  public var first: T? {
     return head?.value
   }
   
@@ -224,7 +224,7 @@ list.back // 0
 
 list.removeFirst() // 1
 
-list.front // 5
+list.first // 5
 
 list.count // 2
 
@@ -235,7 +235,7 @@ list.count // 0
 
 list.removeFirst() // nil
 
-list.front // nil
+list.first // nil
 ```
 
 #### Challenge: Implement a `Queue` using the `LinkedList` above
@@ -260,7 +260,7 @@ struct Queue<T: Equatable> {
     return elements.count
   }
   
-  public var front: T? {
+  public var first: T? {
     return elements.first
   }
   
