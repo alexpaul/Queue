@@ -57,7 +57,7 @@ struct Queue<T> {
   private var head = 0
   
   public var isEmpty: Bool {
-    return elements.isEmpty
+    return count == 0 
   }
   
   public var count: Int {
