@@ -59,6 +59,14 @@ struct Queue<T> {
   }
   
   public var count: Int {
+    // since we are moving head we need to account for its current position
+    // e.g
+    // [nil, nil, "Bob", "Allison", "Ed"]
+    // [0,    1,   head,  2,          3]
+    // array count is 5
+    // head is at position 2
+    // count = array count - head position
+    // 5 - 2 = 3
     return elements.count - head
   }
   
@@ -66,7 +74,7 @@ struct Queue<T> {
     guard !isEmpty else {
       return nil
     }
-    return elements[head]
+    return elements[head] // we get to the front by indexing with head's position
   }
   
   public mutating func enqueue(_ element: T) {
@@ -77,13 +85,15 @@ struct Queue<T> {
     guard !isEmpty, let element = elements[head] else {
       return nil
     }
-    elements[head] = nil
-    head += 1
-    
+    elements[head] = nil // remove element from queue
+    head += 1 // move head forward by 1
+
+    // on occasion we will need to clean up unused positons in the array (house-cleaning)
+    // here we will get a percentage of the head / array count
     let percentage = Double(head)/Double(elements.count)
     if elements.count > 20 && percentage > 0.25 {
-      elements.removeFirst(head)
-      head = 0
+      elements.removeFirst(head) // remove all elements up to and including the head index
+      head = 0 // reset head
     }
     
     return element
