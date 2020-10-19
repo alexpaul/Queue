@@ -47,7 +47,7 @@ queue.front // 2
 
 ## More optimized `dequeue()`
 
-`dequeue` in our earlier implementation of the `Queue` data structure has a runtime of `O(n)` as each removal requires us to shift all the remaining elements in memory, see Swift documentation for [`removeFirst()`](https://developer.apple.com/documentation/swift/array/2884646-removefirst). Since Swift does not handle this optimization for us we need to implement a more optimal approach the will decrease the runtime to `O(1)`.
+`dequeue` in our earlier implementation of the `Queue` data structure has a runtime of `O(n)` as each removal requires us to shift all the remaining elements in memory, see Swift documentation for [`removeFirst()`](https://developer.apple.com/documentation/swift/array/2884646-removefirst) runtime complexity. Since Swift does not handle this optimization for us we need to implement a more optimal approach the will decrease the runtime to `O(1)`.
 
 ```swift
 struct Queue<T> {
