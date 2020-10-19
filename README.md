@@ -122,6 +122,137 @@ queue.front // Bob
 queue.count // 3
 ```
 
+## Queue implemenation using a Linked List
+
+#### `Node`
+
+```swift
+class Node<T: Equatable>: Equatable {
+  var value: T
+  var next: Node<T>?
+  weak var previous: Node<T>? // doubly list, use of weak to prevent retain cycle
+  init(_ value: T) {
+    self.value = value
+  }
+  static func ==(lhs: Node, rhs: Node) -> Bool {
+    return lhs.value == rhs.value && lhs.next == rhs.next
+  }
+}
+```
+
+#### `LinkedList`
+
+```swift
+struct LinkedList<T: Equatable> {
+  // data structure
+  private var head: Node<T>?
+  private var tail: Node<T>?
+  
+  // private(set) prevents external changes
+  // private(set) public var allows access but not modification outside the LinkedList
+  private(set) public var count = 0
+  
+  public var isEmpty: Bool {
+    return head == nil
+  }
+  
+  public var back: T? {
+    return tail?.value
+  }
+  
+  public var front: T? {
+    return head?.value
+  }
+  
+  public mutating func append(_ element: T) {
+    count += 1
+    let newNode = Node(element)
+    guard let lastNode = tail else {
+      head = newNode
+      tail = newNode
+      return
+    }
+    lastNode.next = newNode
+    newNode.previous = lastNode
+    tail = newNode
+  }
+  
+  @discardableResult
+  public mutating func removeLast() -> T? {
+    // 1
+    // empty state
+    guard let lastNode = tail else {
+      return nil
+    }
+    count -= 1
+    // 2
+    // one element in the list
+    if head == tail { // Node needs to conform to Equatable
+      let removedValue = head?.value
+      head = nil
+      tail = nil
+      return removedValue
+    }
+    
+    // 3
+    // more than one element in the list
+    let removedValue = lastNode.value
+    tail = lastNode.previous
+    lastNode.previous = nil
+    return removedValue
+  }
+  
+  public mutating func removeFirst() -> T? {
+    guard let first = head else {
+      return nil
+    }
+    let removedValue = first.value
+    head = head?.next
+    count -= 1
+    return removedValue
+  }
+}
+
+
+var list = LinkedList<Int>()
+list.append(1)
+list.append(5)
+list.append(0)
+
+list.front // 1
+list.back // 0
+
+list.removeFirst() // 1
+
+list.front // 5
+
+list.count // 2
+
+list.removeFirst() // 5
+list.removeFirst() // 0
+
+list.count // 0
+
+list.removeFirst() // nil
+
+list.front // nil
+```
+
+#### Challenge: Implement a `Queue` using the `LinkedList` above
+
+```swift 
+// code here
+```
+
+<details>
+  <summary>Solution</summary>
+
+```swift
+```
+
+</details>
+
+
 ## Resources 
 
 1. [Ray Wenderlich - Queue](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Queue)
