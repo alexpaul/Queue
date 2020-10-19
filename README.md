@@ -109,3 +109,7 @@ queue.front // Bob
 
 queue.count // 3
 ```
+
+## Resources 
+
+1. [Ray Wenderlich - Queue](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Queue)
