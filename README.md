@@ -248,6 +248,30 @@ list.front // nil
   <summary>Solution</summary>
 
 ```swift
+struct Queue<T: Equatable> {
+  // data structure
+  private var elements = LinkedList<T>()
+  
+  public var isEmpty: Bool {
+    return elements.isEmpty
+  }
+  
+  public var count: Int {
+    return elements.count
+  }
+  
+  public var front: T? {
+    return elements.first
+  }
+  
+  public mutating func enqueue(_ element: T) {
+    elements.append(element)
+  }
+  
+  public mutating func dequeue() -> T? {
+    return elements.removeFirst()
+  }
+}
 ```
 
 </details>
